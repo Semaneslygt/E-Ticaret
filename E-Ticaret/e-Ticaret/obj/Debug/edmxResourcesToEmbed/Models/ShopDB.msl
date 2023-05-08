@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ShopDBModelStoreContainer" CdmEntityContainer="ShopDBEntities">
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="ShopDBModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblKategorilers">
+      <EntityTypeMapping TypeName="ShopDBModel.tblKategoriler">
+        <MappingFragment StoreEntitySet="tblKategoriler">
+          <ScalarProperty Name="KategoriAdi" ColumnName="KategoriAdi" />
+          <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMarkalars">
+      <EntityTypeMapping TypeName="ShopDBModel.tblMarkalar">
+        <MappingFragment StoreEntitySet="tblMarkalar">
+          <ScalarProperty Name="MarkaAdi" ColumnName="MarkaAdi" />
+          <ScalarProperty Name="MarkaID" ColumnName="MarkaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblSepets">
+      <EntityTypeMapping TypeName="ShopDBModel.tblSepet">
+        <MappingFragment StoreEntitySet="tblSepet">
+          <ScalarProperty Name="UrunID" ColumnName="UrunID" />
+          <ScalarProperty Name="IpNumarası" ColumnName="IpNumarası" />
+          <ScalarProperty Name="UyeID" ColumnName="UyeID" />
+          <ScalarProperty Name="SepetID" ColumnName="SepetID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUrunFavoris">
+      <EntityTypeMapping TypeName="ShopDBModel.tblUrunFavori">
+        <MappingFragment StoreEntitySet="tblUrunFavori">
+          <ScalarProperty Name="IpNumarası" ColumnName="IpNumarası" />
+          <ScalarProperty Name="UyeID" ColumnName="UyeID" />
+          <ScalarProperty Name="UrunID" ColumnName="UrunID" />
+          <ScalarProperty Name="FavoriID" ColumnName="FavoriID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUrunlers">
+      <EntityTypeMapping TypeName="ShopDBModel.tblUrunler">
+        <MappingFragment StoreEntitySet="tblUrunler">
+          <ScalarProperty Name="GuncellemeTarih" ColumnName="GuncellemeTarih" />
+          <ScalarProperty Name="OlusturmaTarih" ColumnName="OlusturmaTarih" />
+          <ScalarProperty Name="SatılanAdet" ColumnName="SatılanAdet" />
+          <ScalarProperty Name="KdvOran" ColumnName="KdvOran" />
+          <ScalarProperty Name="SatisFiyati" ColumnName="SatisFiyati" />
+          <ScalarProperty Name="GelisFiyati" ColumnName="GelisFiyati" />
+          <ScalarProperty Name="Stok" ColumnName="Stok" />
+          <ScalarProperty Name="ListeGorsel" ColumnName="ListeGorsel" />
+          <ScalarProperty Name="UrunAciklama" ColumnName="UrunAciklama" />
+          <ScalarProperty Name="UrunAdi" ColumnName="UrunAdi" />
+          <ScalarProperty Name="MarkaID" ColumnName="MarkaID" />
+          <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
+          <ScalarProperty Name="UrunID" ColumnName="UrunID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUyelers">
+      <EntityTypeMapping TypeName="ShopDBModel.tblUyeler">
+        <MappingFragment StoreEntitySet="tblUyeler">
+          <ScalarProperty Name="Admin" ColumnName="Admin" />
+          <ScalarProperty Name="Adres" ColumnName="Adres" />
+          <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="AdSoyad" ColumnName="AdSoyad" />
+          <ScalarProperty Name="UyeID" ColumnName="UyeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="ShopDBModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="ShopDBModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="ShopDBModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="ShopDBModel.Store.sp_helpdiagramdefinition" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="ShopDBModel.Store.sp_helpdiagrams" />
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ShopDBModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ShopDBModel.Store.sp_upgraddiagrams" />
+  </EntityContainerMapping>
+</Mapping>

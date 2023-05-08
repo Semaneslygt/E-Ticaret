@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ShopDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ShopDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="ShopDBModel.sysdiagram" />
+    <EntitySet Name="tblKategorilers" EntityType="ShopDBModel.tblKategoriler" />
+    <EntitySet Name="tblMarkalars" EntityType="ShopDBModel.tblMarkalar" />
+    <EntitySet Name="tblSepets" EntityType="ShopDBModel.tblSepet" />
+    <EntitySet Name="tblUrunFavoris" EntityType="ShopDBModel.tblUrunFavori" />
+    <EntitySet Name="tblUrunlers" EntityType="ShopDBModel.tblUrunler" />
+    <EntitySet Name="tblUyelers" EntityType="ShopDBModel.tblUyeler" />
+    <AssociationSet Name="FK_tblUrunler_tblKategoriler" Association="ShopDBModel.FK_tblUrunler_tblKategoriler">
+      <End Role="tblKategoriler" EntitySet="tblKategorilers" />
+      <End Role="tblUrunler" EntitySet="tblUrunlers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUrunler_tblMarkalar" Association="ShopDBModel.FK_tblUrunler_tblMarkalar">
+      <End Role="tblMarkalar" EntitySet="tblMarkalars" />
+      <End Role="tblUrunler" EntitySet="tblUrunlers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblSepet_tblUrunler" Association="ShopDBModel.FK_tblSepet_tblUrunler">
+      <End Role="tblUrunler" EntitySet="tblUrunlers" />
+      <End Role="tblSepet" EntitySet="tblSepets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblSepet_tblUyeler" Association="ShopDBModel.FK_tblSepet_tblUyeler">
+      <End Role="tblUyeler" EntitySet="tblUyelers" />
+      <End Role="tblSepet" EntitySet="tblSepets" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUrunFavori_tblUrunler" Association="ShopDBModel.FK_tblUrunFavori_tblUrunler">
+      <End Role="tblUrunler" EntitySet="tblUrunlers" />
+      <End Role="tblUrunFavori" EntitySet="tblUrunFavoris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUrunFavori_tblUyeler" Association="ShopDBModel.FK_tblUrunFavori_tblUyeler">
+      <End Role="tblUyeler" EntitySet="tblUyelers" />
+      <End Role="tblUrunFavori" EntitySet="tblUrunFavoris" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tblKategoriler">
+    <Key>
+      <PropertyRef Name="KategoriID" />
+    </Key>
+    <Property Name="KategoriID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KategoriAdi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblUrunlers" Relationship="ShopDBModel.FK_tblUrunler_tblKategoriler" FromRole="tblKategoriler" ToRole="tblUrunler" />
+  </EntityType>
+  <EntityType Name="tblMarkalar">
+    <Key>
+      <PropertyRef Name="MarkaID" />
+    </Key>
+    <Property Name="MarkaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MarkaAdi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblUrunlers" Relationship="ShopDBModel.FK_tblUrunler_tblMarkalar" FromRole="tblMarkalar" ToRole="tblUrunler" />
+  </EntityType>
+  <EntityType Name="tblSepet">
+    <Key>
+      <PropertyRef Name="SepetID" />
+    </Key>
+    <Property Name="SepetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UyeID" Type="Int32" />
+    <Property Name="IpNumarası" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UrunID" Type="Int32" />
+    <NavigationProperty Name="tblUrunler" Relationship="ShopDBModel.FK_tblSepet_tblUrunler" FromRole="tblSepet" ToRole="tblUrunler" />
+    <NavigationProperty Name="tblUyeler" Relationship="ShopDBModel.FK_tblSepet_tblUyeler" FromRole="tblSepet" ToRole="tblUyeler" />
+  </EntityType>
+  <EntityType Name="tblUrunFavori">
+    <Key>
+      <PropertyRef Name="FavoriID" />
+    </Key>
+    <Property Name="FavoriID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UrunID" Type="Int32" />
+    <Property Name="UyeID" Type="Int32" />
+    <Property Name="IpNumarası" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tblUrunler" Relationship="ShopDBModel.FK_tblUrunFavori_tblUrunler" FromRole="tblUrunFavori" ToRole="tblUrunler" />
+    <NavigationProperty Name="tblUyeler" Relationship="ShopDBModel.FK_tblUrunFavori_tblUyeler" FromRole="tblUrunFavori" ToRole="tblUyeler" />
+  </EntityType>
+  <EntityType Name="tblUrunler">
+    <Key>
+      <PropertyRef Name="UrunID" />
+    </Key>
+    <Property Name="UrunID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KategoriID" Type="Int32" />
+    <Property Name="MarkaID" Type="Int32" />
+    <Property Name="UrunAdi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="UrunAciklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ListeGorsel" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Stok" Type="Int32" />
+    <Property Name="GelisFiyati" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="SatisFiyati" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="KdvOran" Type="Int32" />
+    <Property Name="SatılanAdet" Type="Int32" />
+    <Property Name="OlusturmaTarih" Type="DateTime" Precision="3" />
+    <Property Name="GuncellemeTarih" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="tblKategoriler" Relationship="ShopDBModel.FK_tblUrunler_tblKategoriler" FromRole="tblUrunler" ToRole="tblKategoriler" />
+    <NavigationProperty Name="tblMarkalar" Relationship="ShopDBModel.FK_tblUrunler_tblMarkalar" FromRole="tblUrunler" ToRole="tblMarkalar" />
+    <NavigationProperty Name="tblSepets" Relationship="ShopDBModel.FK_tblSepet_tblUrunler" FromRole="tblUrunler" ToRole="tblSepet" />
+    <NavigationProperty Name="tblUrunFavoris" Relationship="ShopDBModel.FK_tblUrunFavori_tblUrunler" FromRole="tblUrunler" ToRole="tblUrunFavori" />
+  </EntityType>
+  <EntityType Name="tblUyeler">
+    <Key>
+      <PropertyRef Name="UyeID" />
+    </Key>
+    <Property Name="UyeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AdSoyad" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Sifre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Admin" Type="Boolean" />
+    <NavigationProperty Name="tblSepets" Relationship="ShopDBModel.FK_tblSepet_tblUyeler" FromRole="tblUyeler" ToRole="tblSepet" />
+    <NavigationProperty Name="tblUrunFavoris" Relationship="ShopDBModel.FK_tblUrunFavori_tblUyeler" FromRole="tblUyeler" ToRole="tblUrunFavori" />
+  </EntityType>
+  <Association Name="FK_tblUrunler_tblKategoriler">
+    <End Type="ShopDBModel.tblKategoriler" Role="tblKategoriler" Multiplicity="0..1" />
+    <End Type="ShopDBModel.tblUrunler" Role="tblUrunler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblKategoriler">
+        <PropertyRef Name="KategoriID" />
+      </Principal>
+      <Dependent Role="tblUrunler">
+        <PropertyRef Name="KategoriID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUrunler_tblMarkalar">
+    <End Type="ShopDBModel.tblMarkalar" Role="tblMarkalar" Multiplicity="0..1" />
+    <End Type="ShopDBModel.tblUrunler" Role="tblUrunler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMarkalar">
+        <PropertyRef Name="MarkaID" />
+      </Principal>
+      <Dependent Role="tblUrunler">
+        <PropertyRef Name="MarkaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblSepet_tblUrunler">
+    <End Type="ShopDBModel.tblUrunler" Role="tblUrunler" Multiplicity="0..1" />
+    <End Type="ShopDBModel.tblSepet" Role="tblSepet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUrunler">
+        <PropertyRef Name="UrunID" />
+      </Principal>
+      <Dependent Role="tblSepet">
+        <PropertyRef Name="UrunID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblSepet_tblUyeler">
+    <End Type="ShopDBModel.tblUyeler" Role="tblUyeler" Multiplicity="0..1" />
+    <End Type="ShopDBModel.tblSepet" Role="tblSepet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUyeler">
+        <PropertyRef Name="UyeID" />
+      </Principal>
+      <Dependent Role="tblSepet">
+        <PropertyRef Name="UyeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUrunFavori_tblUrunler">
+    <End Type="ShopDBModel.tblUrunler" Role="tblUrunler" Multiplicity="0..1" />
+    <End Type="ShopDBModel.tblUrunFavori" Role="tblUrunFavori" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUrunler">
+        <PropertyRef Name="UrunID" />
+      </Principal>
+      <Dependent Role="tblUrunFavori">
+        <PropertyRef Name="UrunID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUrunFavori_tblUyeler">
+    <End Type="ShopDBModel.tblUyeler" Role="tblUyeler" Multiplicity="0..1" />
+    <End Type="ShopDBModel.tblUrunFavori" Role="tblUrunFavori" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUyeler">
+        <PropertyRef Name="UyeID" />
+      </Principal>
+      <Dependent Role="tblUrunFavori">
+        <PropertyRef Name="UyeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ShopDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="tblKategoriler">
+    <Key>
+      <PropertyRef Name="KategoriID" />
+    </Key>
+    <Property Name="KategoriID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KategoriAdi" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="tblMarkalar">
+    <Key>
+      <PropertyRef Name="MarkaID" />
+    </Key>
+    <Property Name="MarkaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MarkaAdi" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="tblSepet">
+    <Key>
+      <PropertyRef Name="SepetID" />
+    </Key>
+    <Property Name="SepetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UyeID" Type="int" />
+    <Property Name="IpNumarası" Type="varchar" MaxLength="50" />
+    <Property Name="UrunID" Type="int" />
+  </EntityType>
+  <EntityType Name="tblUrunFavori">
+    <Key>
+      <PropertyRef Name="FavoriID" />
+    </Key>
+    <Property Name="FavoriID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UrunID" Type="int" />
+    <Property Name="UyeID" Type="int" />
+    <Property Name="IpNumarası" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblUrunler">
+    <Key>
+      <PropertyRef Name="UrunID" />
+    </Key>
+    <Property Name="UrunID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KategoriID" Type="int" />
+    <Property Name="MarkaID" Type="int" />
+    <Property Name="UrunAdi" Type="nvarchar" MaxLength="100" />
+    <Property Name="UrunAciklama" Type="nvarchar(max)" />
+    <Property Name="ListeGorsel" Type="varchar(max)" />
+    <Property Name="Stok" Type="int" />
+    <Property Name="GelisFiyati" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="SatisFiyati" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="KdvOran" Type="int" />
+    <Property Name="SatılanAdet" Type="int" />
+    <Property Name="OlusturmaTarih" Type="datetime" />
+    <Property Name="GuncellemeTarih" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tblUyeler">
+    <Key>
+      <PropertyRef Name="UyeID" />
+    </Key>
+    <Property Name="UyeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AdSoyad" Type="nvarchar" MaxLength="100" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" />
+    <Property Name="Sifre" Type="nvarchar" MaxLength="100" />
+    <Property Name="Adres" Type="nvarchar(max)" />
+    <Property Name="Admin" Type="bit" />
+  </EntityType>
+  <Association Name="FK_tblSepet_tblUrunler">
+    <End Role="tblUrunler" Type="Self.tblUrunler" Multiplicity="0..1" />
+    <End Role="tblSepet" Type="Self.tblSepet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUrunler">
+        <PropertyRef Name="UrunID" />
+      </Principal>
+      <Dependent Role="tblSepet">
+        <PropertyRef Name="UrunID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblSepet_tblUyeler">
+    <End Role="tblUyeler" Type="Self.tblUyeler" Multiplicity="0..1" />
+    <End Role="tblSepet" Type="Self.tblSepet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUyeler">
+        <PropertyRef Name="UyeID" />
+      </Principal>
+      <Dependent Role="tblSepet">
+        <PropertyRef Name="UyeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUrunFavori_tblUrunler">
+    <End Role="tblUrunler" Type="Self.tblUrunler" Multiplicity="0..1" />
+    <End Role="tblUrunFavori" Type="Self.tblUrunFavori" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUrunler">
+        <PropertyRef Name="UrunID" />
+      </Principal>
+      <Dependent Role="tblUrunFavori">
+        <PropertyRef Name="UrunID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUrunFavori_tblUyeler">
+    <End Role="tblUyeler" Type="Self.tblUyeler" Multiplicity="0..1" />
+    <End Role="tblUrunFavori" Type="Self.tblUrunFavori" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUyeler">
+        <PropertyRef Name="UyeID" />
+      </Principal>
+      <Dependent Role="tblUrunFavori">
+        <PropertyRef Name="UyeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUrunler_tblKategoriler">
+    <End Role="tblKategoriler" Type="Self.tblKategoriler" Multiplicity="0..1" />
+    <End Role="tblUrunler" Type="Self.tblUrunler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblKategoriler">
+        <PropertyRef Name="KategoriID" />
+      </Principal>
+      <Dependent Role="tblUrunler">
+        <PropertyRef Name="KategoriID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblUrunler_tblMarkalar">
+    <End Role="tblMarkalar" Type="Self.tblMarkalar" Multiplicity="0..1" />
+    <End Role="tblUrunler" Type="Self.tblUrunler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMarkalar">
+        <PropertyRef Name="MarkaID" />
+      </Principal>
+      <Dependent Role="tblUrunler">
+        <PropertyRef Name="MarkaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="ShopDBModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblKategoriler" EntityType="Self.tblKategoriler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblMarkalar" EntityType="Self.tblMarkalar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblSepet" EntityType="Self.tblSepet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblUrunFavori" EntityType="Self.tblUrunFavori" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblUrunler" EntityType="Self.tblUrunler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblUyeler" EntityType="Self.tblUyeler" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_tblSepet_tblUrunler" Association="Self.FK_tblSepet_tblUrunler">
+      <End Role="tblUrunler" EntitySet="tblUrunler" />
+      <End Role="tblSepet" EntitySet="tblSepet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblSepet_tblUyeler" Association="Self.FK_tblSepet_tblUyeler">
+      <End Role="tblUyeler" EntitySet="tblUyeler" />
+      <End Role="tblSepet" EntitySet="tblSepet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUrunFavori_tblUrunler" Association="Self.FK_tblUrunFavori_tblUrunler">
+      <End Role="tblUrunler" EntitySet="tblUrunler" />
+      <End Role="tblUrunFavori" EntitySet="tblUrunFavori" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUrunFavori_tblUyeler" Association="Self.FK_tblUrunFavori_tblUyeler">
+      <End Role="tblUyeler" EntitySet="tblUyeler" />
+      <End Role="tblUrunFavori" EntitySet="tblUrunFavori" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUrunler_tblKategoriler" Association="Self.FK_tblUrunler_tblKategoriler">
+      <End Role="tblKategoriler" EntitySet="tblKategoriler" />
+      <End Role="tblUrunler" EntitySet="tblUrunler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblUrunler_tblMarkalar" Association="Self.FK_tblUrunler_tblMarkalar">
+      <End Role="tblMarkalar" EntitySet="tblMarkalar" />
+      <End Role="tblUrunler" EntitySet="tblUrunler" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
